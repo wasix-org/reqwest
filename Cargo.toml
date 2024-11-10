@@ -100,7 +100,7 @@ mime_guess = { version = "2.0", default-features = false, optional = true }
 [target.'cfg(not(all(target_arch = "wasm32", target_os = "unknown")))'.dependencies]
 encoding_rs = "0.8"
 http-body = "0.4.0"
-hyper = { git = "https://github.com/wasix-org/hyper.git", branch = "v0.14.28", default-features = false, features = ["tcp", "http1", "http2", "client", "runtime"] }
+hyper = { git = "https://github.com/wasix-org/hyper.git", branch = "v0.14.27", default-features = false, features = ["tcp", "http1", "http2", "client", "runtime"] }
 
 #h2 = { git = "https://github.com/wasix-org/h2.git" }
 h2 = { git = "https://github.com/wasix-org/h2.git", branch = "v0.3.23", optional = true }
@@ -168,7 +168,7 @@ futures-channel = { version="0.3", optional = true}
 
 [target.'cfg(not(all(target_arch = "wasm32", target_os = "unknown")))'.dev-dependencies]
 env_logger = "0.8"
-hyper = { git = "https://github.com/wasix-org/hyper.git", branch = "v0.14.28", default-features = false, features = ["tcp", "stream", "http1", "http2", "client", "server", "runtime"] }
+hyper = { git = "https://github.com/wasix-org/hyper.git", branch = "v0.14.27", default-features = false, features = ["tcp", "stream", "http1", "http2", "client", "server", "runtime"] }
 serde = { version = "1.0", features = ["derive"] }
 libflate = "1.0"
 brotli_crate = { package = "brotli", version = "3.3.0" }
