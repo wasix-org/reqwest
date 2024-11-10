@@ -1,11 +1,12 @@
 [package]
-name="reqwest"
+name = "reqwest"
 version = "0.11.18" # remember to update html_root_url
 description = "higher level HTTP client library"
 keywords = ["http", "request", "client"]
 categories = ["web-programming::http-client", "wasm"]
-repository = "https://github.com/fcn94/reqwest"
+repository = "https://github.com/seanmonstar/reqwest"
 documentation = "https://docs.rs/reqwest"
+authors = ["Sean McArthur <sean@seanmonstar.com>"]
 readme = "README.md"
 license = "MIT OR Apache-2.0"
 edition = "2018"
