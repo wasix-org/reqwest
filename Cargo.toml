@@ -1,5 +1,5 @@
 [package]
-name = "reqwest_v2"
+name = "reqwest"
 version = "0.11.18" # remember to update html_root_url
 description = "higher level HTTP client library"
 keywords = ["http", "request", "client"]
