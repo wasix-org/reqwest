@@ -1,31 +1,8 @@
 [package]
 name = "reqwest"
-
 version = "0.11.18"
 
-description = "higher level HTTP client library"
-keywords = ["http", "request", "client"]
-categories = ["web-programming::http-client", "wasm"]
-documentation = "https://docs.rs/reqwest"
-authors = ["Sean McArthur <sean@seanmonstar.com>"]
-readme = "README.md"
-license = "MIT OR Apache-2.0"
-edition = "2018"
-rust-version = "1.57.0"
-autotests = true
 
-[package.metadata.docs.rs]
-all-features = true
-rustdoc-args = ["--cfg", "docsrs", "--cfg", "reqwest_unstable"]
-targets = ["x86_64-unknown-linux-gnu", "wasm32-unknown-unknown"]
-
-[package.metadata.playground]
-features = [
-    "blocking",
-    "cookies",
-    "json",
-    "multipart",
-]
 
 [features]
 default = ["default-tls"]
