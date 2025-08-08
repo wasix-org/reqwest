@@ -16,7 +16,7 @@
 // `pin-project-lite = "0.2"`
 // `tower = { version = "0.5", default-features = false}`
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {
     background_threadpool::init_background_runtime();
@@ -48,8 +48,8 @@ async fn main() -> Result<(), reqwest::Error> {
     Ok(())
 }
 
-// separating out for convenience to avoid a million #[cfg(not(target_arch = "wasm32"))]
-#[cfg(not(target_arch = "wasm32"))]
+// separating out for convenience to avoid a million #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
+#[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 mod background_threadpool {
     use std::{
         future::Future,
@@ -102,7 +102,7 @@ mod background_threadpool {
             .unwrap_or_else(|e| panic!("cpu heavy thread failed_to_initialize: {}", e));
     }
 
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
     async fn process_cpu_work() {
         // we only use this channel for routing work, it should move pretty quick, it can be small
         let (tx, mut rx) = tokio::sync::mpsc::channel(10);

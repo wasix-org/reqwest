@@ -262,14 +262,14 @@ use sync_wrapper as _;
 
 macro_rules! if_wasm {
     ($($item:item)*) => {$(
-        #[cfg(target_arch = "wasm32")]
+        #[cfg(all(target_arch = "wasm32", target_os = "unknown"))]
         $item
     )*}
 }
 
 macro_rules! if_hyper {
     ($($item:item)*) => {$(
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
         $item
     )*}
 }
@@ -336,7 +336,7 @@ fn _assert_impls() {
     assert_send::<Request>();
     assert_send::<RequestBuilder>();
 
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
     {
         assert_send::<Response>();
     }

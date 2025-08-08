@@ -27,7 +27,7 @@ features = [
 ]
 
 [features]
-default = ["default-tls", "charset", "http2", "system-proxy"]
+default = ["rustls-tls", "charset", "http2", "system-proxy"]
 
 # Note: this doesn't enable the 'native-tls' feature, which adds specific
 # functionality for it.
@@ -105,7 +105,7 @@ url = "2.4"
 bytes = "1.2"
 serde = "1.0"
 serde_urlencoded = "0.7.1"
-tower-service = "0.3"
+tower-service = { version = "0.3", git = "https://github.com/wasix-org/tower.git", branch = "wasix-0.5.2" }
 futures-core = { version = "0.3.28", default-features = false }
 futures-util = { version = "0.3.28", default-features = false, optional = true }
 sync_wrapper = { version = "1.0", features = ["futures"] }
@@ -117,17 +117,17 @@ serde_json = { version = "1.0", optional = true }
 ## multipart
 mime_guess = { version = "2.0", default-features = false, optional = true }
 
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+[target.'cfg(not(all(target_arch = "wasm32", target_os = "unknown")))'.dependencies]
 encoding_rs = { version = "0.8", optional = true }
 http-body = "1"
 http-body-util = "0.1"
-hyper = { version = "1.1", features = ["http1", "client"] }
-hyper-util = { version = "0.1.12", features = ["http1", "client", "client-legacy", "client-proxy", "tokio"] }
-h2 = { version = "0.4", optional = true }
+hyper = { version = "1.6", git = "https://github.com/wasix-org/hyper.git", branch = "wasix-1.6.0", features = ["http1", "client"] }
+hyper-util = { version = "0.1.16", git = "https://github.com/wasix-org/hyper-util.git", branch = "wasix-0.1.16", features = ["http1", "client", "client-legacy", "client-proxy", "tokio"] }
+h2 = { version = "0.4", git = "https://github.com/wasix-org/h2.git", branch = "v0.4.0", optional = true }
 log = "0.4.17"
 percent-encoding = "2.3"
-tokio = { version = "1.0", default-features = false, features = ["net", "time"] }
-tower = { version = "0.5.2", default-features = false, features = ["timeout", "util"] }
+tokio = { version = "=1.47.0", git = "https://github.com/wasix-org/tokio.git", branch = "wasix-1.47.0", default-features = false, features = ["net", "time"] }
+tower = { version = "0.5.2", git = "https://github.com/wasix-org/tower.git", branch = "wasix-0.5.2", default-features = false, features = ["timeout", "util"] }
 tower-http = { version = "0.6.5", default-features = false, features = ["follow-redirect"] }
 pin-project-lite = "0.2.11"
 
@@ -141,10 +141,10 @@ native-tls-crate = { version = "0.2.10", optional = true, package = "native-tls"
 tokio-native-tls = { version = "0.3.0", optional = true }
 
 # rustls-tls
-hyper-rustls = { version = "0.27.0", default-features = false, optional = true, features = ["http1", "tls12"] }
-rustls = { version = "0.23.4", optional = true, default-features = false, features = ["std", "tls12"] }
-tokio-rustls = { version = "0.26", optional = true, default-features = false, features = ["tls12"] }
-webpki-roots = { version = "1", optional = true }
+hyper-rustls = { git = "https://github.com/wasix-org/hyper-rustls.git", branch="wasix-0.27.7", default-features = false, optional = true, features = ["http1", "tls12"] }
+rustls = { git = "https://github.com/wasix-org/rustls.git", branch = "wasix-0.23.31", optional = true, default-features = false, features = ["std", "tls12"] }
+tokio-rustls = { version = "0.26", git = "https://github.com/wasix-org/tokio-rustls.git", branch = "wasix-0.26.2", optional = true, default-features = false, features = ["tls12"] }
+webpki-roots = { git = "https://github.com/wasix-org/webpki-roots.git", branch = "wasix-1.0.2", optional = true }
 rustls-native-certs = { version = "0.8.0", optional = true }
 
 ## cookies
@@ -153,7 +153,7 @@ cookie_store = { version = "0.21.0", optional = true }
 
 ## compression
 async-compression = { version = "0.4.0", default-features = false, features = ["tokio"], optional = true }
-tokio-util = { version = "0.7.9", default-features = false, features = ["codec", "io"], optional = true }
+tokio-util = { version = "0.7.8", git = "https://github.com/wasix-org/tokio.git", branch = "wasix-1.47.0", default-features = false, features = ["codec", "io"], optional = true }
 
 ## hickory-dns
 hickory-resolver = { version = "0.24", optional = true, features = ["tokio-runtime"] }
@@ -165,28 +165,28 @@ h3-quinn = { version = "0.0.10", optional = true }
 quinn = { version = "0.11.1", default-features = false, features = ["rustls", "runtime-tokio"], optional = true }
 futures-channel = { version = "0.3", optional = true }
 
-[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
+[target.'cfg(not(all(target_arch = "wasm32", target_os = "unknown")))'.dev-dependencies]
 env_logger = "0.10"
-hyper = { version = "1.1.0", default-features = false, features = ["http1", "http2", "client", "server"] }
-hyper-util = { version = "0.1.12", features = ["http1", "http2", "client", "client-legacy", "server-auto", "server-graceful", "tokio"] }
+hyper = { version = "1.6", git = "https://github.com/wasix-org/hyper.git", branch = "wasix-1.6.0", default-features = false, features = ["http1", "http2", "client", "server"] }
+hyper-util = { version = "0.1.16", git = "https://github.com/wasix-org/hyper-util.git", branch = "wasix-0.1.16", features = ["http1", "http2", "client", "client-legacy", "server-auto", "server-graceful", "tokio"] }
 serde = { version = "1.0", features = ["derive"] }
 flate2 = "1.0.13"
 brotli_crate = { package = "brotli", version = "7.0.0" }
 zstd_crate = { package = "zstd", version = "0.13" }
 doc-comment = "0.3"
-tokio = { version = "1.0", default-features = false, features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.0", git = "https://github.com/wasix-org/tokio.git", branch = "wasix-1.47.0", default-features = false, features = ["macros", "rt-multi-thread"] }
 futures-util = { version = "0.3.28", default-features = false, features = ["std", "alloc"] }
 
 # wasm
 
-[target.'cfg(target_arch = "wasm32")'.dependencies]
+[target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies]
 js-sys = "0.3.77"
 serde_json = "1.0"
 wasm-bindgen = "0.2.89"
 wasm-bindgen-futures = "0.4.18"
 wasm-streams = { version = "0.4", optional = true }
 
-[target.'cfg(target_arch = "wasm32")'.dependencies.web-sys]
+[target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dependencies.web-sys]
 version = "0.3.28"
 features = [
     "AbortController",
@@ -206,12 +206,12 @@ features = [
     "ReadableStream"
 ]
 
-[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+[target.'cfg(all(target_arch = "wasm32", target_os = "unknown"))'.dev-dependencies]
 wasm-bindgen = { version = "0.2.89", features = ["serde-serialize"] }
 wasm-bindgen-test = "0.3"
 
 [dev-dependencies]
-tower = { version = "0.5.2", default-features = false, features = ["limit"] }
+tower = { version = "0.5.2", git = "https://github.com/wasix-org/tower.git", branch = "wasix-0.5.2", default-features = false, features = ["limit"] }
 num_cpus = "1.0"
 libc = "0"
 
@@ -289,3 +289,13 @@ required-features = ["deflate", "stream"]
 name = "multipart"
 path = "tests/multipart.rs"
 required-features = ["multipart"]
+
+[patch.crates-io]
+h2 = { git = "https://github.com/wasix-org/h2.git", branch = "v0.4.0" }
+tokio = { git = "https://github.com/wasix-org/tokio.git", branch = "wasix-1.47.0" }
+hyper = { git = "https://github.com/wasix-org/hyper.git", branch = "wasix-1.6.0" }
+tower = { git = "https://github.com/wasix-org/tower.git", branch = "wasix-0.5.2" }
+tower-service = { git = "https://github.com/wasix-org/tower.git", branch = "wasix-0.5.2" }
+tokio-util = { git = "https://github.com/wasix-org/tokio.git", branch = "wasix-1.47.0" }
+hyper-util = { git = "https://github.com/wasix-org/hyper-util.git", branch = "wasix-0.1.16" }
+

@@ -4,7 +4,7 @@
 //
 // `tokio = { version = "1", features = ["full"] }`
 #[cfg(feature = "http3")]
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {
     let client = reqwest::Client::builder().http3_prior_knowledge().build()?;

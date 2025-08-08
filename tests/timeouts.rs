@@ -88,7 +88,7 @@ async fn connect_timeout() {
     assert!(err.is_connect() && err.is_timeout());
 }
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 #[tokio::test]
 async fn connect_many_timeout_succeeds() {
     let _ = env_logger::try_init();
@@ -116,7 +116,7 @@ async fn connect_many_timeout_succeeds() {
         .unwrap();
 }
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(not(all(target_arch = "wasm32", target_os = "unknown")))]
 #[tokio::test]
 async fn connect_many_timeout() {
     let _ = env_logger::try_init();
